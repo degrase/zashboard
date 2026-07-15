@@ -84,6 +84,12 @@ export const getIPv6ByName = (proxyName: string) => {
   return IPv6Map.value[getNowProxyNodeName(proxyName)]
 }
 
+// fork: extended health-check probes for the node currently behind this name.
+export const getExtendedProbesByName = (proxyName: string) => {
+  const node = proxyMap.value[getNowProxyNodeName(proxyName)]
+  return node?.['extended-probes'] ?? []
+}
+
 export const getNowProxyNodeName = (name: string) => {
   let node = proxyMap.value[name]
 

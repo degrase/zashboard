@@ -318,7 +318,7 @@ export const iconReflectList = useStorage<
     uuid: string
   }[]
 >('config/icon-reflect-list', [])
-export const groupProxiesByProvider = useStorage('config/group-proxies-by-provider', false)
+export const groupProxiesByProvider = useStorage('config/group-proxies-by-provider', true)
 export const useSmartGroupSort = useStorage('config/use-smart-group-sort', false)
 export const groupTestUrls = useStorage<
   {

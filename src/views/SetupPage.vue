@@ -75,8 +75,10 @@ import { computed, ref, watch } from 'vue'
 
 const form = ref<Omit<Backend, 'uuid'>>({
   type: 'clash' as BackendType,
-  protocol: 'http',
-  host: '127.0.0.1',
+  // fork: default to the host/protocol the UI is served from, so opening the
+  // dashboard from the router auto-targets that router's API on first run.
+  protocol: window.location.protocol === 'https:' ? 'https' : 'http',
+  host: window.location.hostname || '127.0.0.1',
   port: '9090',
   secondaryPath: '',
   password: '',
@@ -85,6 +87,25 @@ const form = ref<Omit<Backend, 'uuid'>>({
 
 // 填表期间就持续探测:通不通、为什么不通,在按提交之前就该看得见。
 const reachability = useBackendReachability(form)
+
+// fork: normalize a pasted host like "https://10.9.0.83/" — lift the scheme into
+// the protocol select and strip the scheme + any trailing slash/path from host.
+watch(
+  () => form.value.host,
+  (value) => {
+    if (!value) return
+    let next = value
+    const proto = next.match(/^(https?):\/\//i)
+    if (proto) {
+      form.value.protocol = proto[1].toLowerCase()
+      next = next.slice(proto[0].length)
+    }
+    next = next.replace(/\/.*$/, '')
+    if (next !== value) {
+      form.value.host = next
+    }
+  },
+)
 
 const isSubmitting = ref(false)
 const canSubmit = computed(() => reachability.status.value === 'online' && !isSubmitting.value)

@@ -62,6 +62,16 @@ export type Proxy = {
   testUrl?: string
   'dialer-proxy'?: string
   'provider-name'?: string
+  // fork: extended health-check probes published by our mihomo core in /proxies.
+  'extended-probes'?: {
+    target: string
+    class: string
+    delay: number
+  }[]
+  'extended-health-check'?: {
+    alive: boolean
+    history: History
+  }
 }
 
 export type SubscriptionInfo = {

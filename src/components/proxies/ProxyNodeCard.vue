@@ -47,6 +47,11 @@
         @click.stop="handlerLatencyTest"
       />
     </div>
+
+    <ProxyProbes
+      v-if="!isSmallCard"
+      :name="node.name"
+    />
   </div>
 </template>
 
@@ -63,6 +68,7 @@ import { computed, nextTick, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import LatencyTag from './LatencyTag.vue'
 import ProxyIcon from './ProxyIcon.vue'
+import ProxyProbes from './ProxyProbes.vue'
 
 const { t } = useI18n()
 const props = defineProps<{

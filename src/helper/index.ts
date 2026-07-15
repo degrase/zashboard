@@ -122,6 +122,17 @@ export const getColorForLatency = (latency: number) => {
   }
 }
 
+// fork: color an extended-probe tile by its outcome class (not by latency).
+export const getColorForProbeClass = (probeClass: string) => {
+  if (probeClass === 'ok') {
+    return 'text-success'
+  } else if (probeClass === 'timeout' || probeClass === 'udp-not-supported') {
+    return 'text-warning'
+  } else {
+    return 'text-error'
+  }
+}
+
 export const renderRoutes = computed(() => {
   // capability gate per route; routes not listed here are always shown
   const routeCapable: Partial<Record<ROUTE_NAME, boolean>> = {
