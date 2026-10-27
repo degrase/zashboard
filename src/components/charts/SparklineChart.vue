@@ -44,8 +44,7 @@ const options = computed<EChartOption>(() => {
     props.color === 'secondary' ? colors.seriesSecondaryMuted : colors.seriesPrimaryMuted
 
   return {
-    animationDurationUpdate: 1000,
-    animationEasingUpdate: 'linear',
+    animationDurationUpdate: 0,
     grid: { left: 0, top: 0, right: props.labelFormatter ? 30 : 0, bottom: 0 },
     tooltip: props.tooltipFormatter
       ? {

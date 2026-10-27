@@ -55,8 +55,7 @@ const options = computed<EChartOption>(() => {
   const latest = lastPoint ? getChartPointValue(lastPoint)[0] : isSeconds ? 0 : Date.now()
 
   return {
-    animationDurationUpdate: 1000,
-    animationEasingUpdate: 'linear',
+    animationDurationUpdate: 0,
     legend: {
       bottom: 0,
       data: props.data.map((item) => item.name),
